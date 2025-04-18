@@ -1,0 +1,96 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "_version": "1.3.0",
+    "id": "aichatplugin",
+    "type": "component",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{pluginTitle}}",
+    "description": "{{pluginDescription}}",
+    "crossNavigation": {
+      "inbounds": {
+        "Shell-plugin": {
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          },
+          "semanticObject": "Shell",
+          "action": "plugin",
+          "hideLauncher": true
+        }
+      }
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/chat/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "_version": "1.3.0",
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "_version": "1.2.0",
+    "contentDensities": {
+      "compact": true,
+      "cozy": false
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "aichatplugin.i18n.i18n"
+        }
+      },
+      "": {
+        "type": "sap.ui.model.odata.v4.ODataModel",
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true
+        },
+        "dataSource": "mainService"
+      }
+    },
+    "dependencies": {
+      "minUI5Version": "1.38.1",
+      "libs": {
+        "sap.ui.core": {
+          "minVersion": "1.38.1"
+        },
+        "sap.m": {
+          "minVersion": "1.38.1"
+        }
+      }
+    },
+    "componentName": "aichatplugin"
+  },
+  "sap.flp": {
+    "type": "plugin",
+    "config": {}
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "aichatplugin"
+  }
+}

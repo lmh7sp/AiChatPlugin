@@ -1,0 +1,62 @@
+
+.chatPopoverFull {
+  /* overflow: hidden !important; */
+}
+
+.chatSidePane {
+  padding: 0;
+  background-color: #fafafa;
+  border-right: 1px solid #ddd;
+  height: auto;       /* 또는 아예 지우기 */
+  min-width: 0 !important;       /* 💡 꼭 넣기 */
+}
+#historyList {
+  height: 100%;
+}
+.chatScrollArea {
+  max-height: 100%; /* 또는 height: auto */
+  overflow-y: auto;
+  /* padding: 8px; */
+  background-color: #f9f9f9;
+  /* border: 1px solid #ddd; */
+  border-radius: 6px;
+}
+
+.chatInputBox {
+  padding: 8px;
+  gap: 8px;
+  background: white;
+  border-top: 1px solid #eee;
+}
+
+
+
+.chatMessageBubble {
+  max-width: 80%;
+  padding: 8px 12px;
+  margin: 8px;
+  border-radius: 12px;
+  margin-bottom: 6px;
+  background-color: #eeeeee;
+}
+
+.chatSenderName {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #555;
+}
+
+.chatTime {
+  font-size: 0.7rem;
+  color: #888;
+}
+
+.chatText {
+  margin-top: 4px;
+  white-space: pre-wrap;
+}
+
+/* Splitter의 리사이즈 핸들 너비 조정 */
+.chatSplitter .sapUiLoSplitterBar {
+  width: 4px !important; /* 원하는 너비로 설정 */
+}

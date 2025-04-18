@@ -1,0 +1,107 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="aichatplugin.control"
+    xmlns:l="sap.ui.layout">
+
+    <Popover
+        id="chatPopover"
+        title="AI Chat"
+        placement="Left"
+        resizable="true"
+        contentWidth="600px"
+        contentHeight="600px"
+        showHeader="true"
+        class="chatPopoverFull"
+        verticalScrolling="false"
+        horizontalScrolling="false"
+        showArrow="false"
+        footer="true"
+        offsetX="70"
+        offsetY="-380">
+
+        <!-- 🟦 Splitter (좌: 요약 / 우: 채팅 메시지) -->
+        <l:Splitter height="100%" id="mySplitter" class="chatSplitter">
+            <!-- 왼쪽 패널 (AI 요약, 문서 정보 등) -->
+            <VBox class="chatSidePane" id="chatHistoryArea">
+                <List
+                    id="historyList"
+                    items="{
+                        path:'/Conversation',
+                        sorter:{
+                            path:'last_update_time',
+                            descending: true
+                        }
+                    }"
+                    mode="MultiSelect"
+                    sticky="HeaderToolbar">
+                    <headerToolbar>
+                        <Toolbar id="historyListToolbar">
+                            <Title text="요약" level="H5" />
+                            <ToolbarSpacer />
+                            <Button icon="sap-icon://add" press=".onNewChat" />
+                            <Button icon="sap-icon://less" press="onDeleteChat" />
+                        </Toolbar>
+                    </headerToolbar>
+                    <StandardListItem title="{title}" description="{creation_time}" type="Active" press=".onSelectHistory"/>
+                    <layoutData>
+                        <FlexItemData growFactor="1"/>
+                    </layoutData>
+                </List>
+                <layoutData>
+                    <l:SplitterLayoutData size="250px"/>
+                </layoutData>
+            </VBox>
+
+            <!-- 오른쪽 패널 (채팅 메시지) -->
+            <ScrollContainer
+                id="chatMessageArea"
+                vertical="true"
+                class="chatScrollArea"
+                fitContainer="true"
+                busy="{chatModel>/isBusy}"
+                busyIndicatorDelay="0">
+                <VBox id="chatMessages" items="{
+                        path:'chatModel>/messages',
+                        sorter:{
+                            path:'message_time',
+                            descending: false
+                        }
+                    }">
+                    <HBox justifyContent="{= ${chatModel>user_role} === 'user' ? 'End' : 'Start' }">
+                        <VBox class="chatMessageBubble">
+                            <HBox justifyContent="SpaceBetween">
+                                <Text text="{chatModel>user_id}" class="chatSenderName" />
+                                <Text text="{chatModel>message_time}" class="chatTime" />
+                            </HBox>
+                            <Text text="{chatModel>user_query}" class="chatText" />
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </ScrollContainer>
+        </l:Splitter>
+
+        <!-- 🟥 Footer: 입력창 -->
+        <footer>
+            <HBox class="chatInputBox" alignItems="Stretch" fitContainer="true" busy="{chatModel>/isBusy}" busyIndicatorDelay="0">
+                <TextArea
+                    id="chatInput"
+                    placeholder="Type your message..."
+                    growing="true"
+                    growingMaxLines="4"
+                    width="100%"
+                    liveChange=".onLiveChange"
+                    valueLiveUpdate="true"
+                    class="chatInputArea"
+                    rows="2"
+                    value="{chatModel>/user_query}">
+                    <layoutData>
+                        <FlexItemData growFactor="1" />
+                    </layoutData>
+                </TextArea>
+                <Button icon="sap-icon://paper-plane" type="Emphasized" press=".onSendMessage" />
+            </HBox>
+        </footer>
+
+    </Popover>
+</core:FragmentDefinition>
