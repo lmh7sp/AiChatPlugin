@@ -37,7 +37,7 @@
                     sticky="HeaderToolbar">
                     <headerToolbar>
                         <Toolbar id="historyListToolbar">
-                            <Title text="요약" level="H5" />
+                            <Title text="채팅" level="H5" />
                             <ToolbarSpacer />
                             <Button icon="sap-icon://add" press=".onNewChat" />
                             <Button icon="sap-icon://less" press="onDeleteChat" />
